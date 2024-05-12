@@ -3,21 +3,26 @@ const thoughtSchema = require('./Thought');
 
 const userSchema = new Schema(
   {
-    userName: {
+    username: {
       type: String,
+      unique: true,
       required: true,
-      maxlength: 50,
     },
     email: {
       type: String,
       unique: true,
       required: true,
     },
-    thought: [{ type: Schema.Types.ObjectId, ref: 'Thought' }],
+    thought: [
+      { 
+        type: Schema.Types.ObjectId,
+        ref: 'thought'
+      }
+    ],
     friends: [
       {
         type: Schema.Types.ObjectId,
-        ref: 'User',
+        ref: 'user',
       },
     ],
   },
@@ -30,6 +35,7 @@ const userSchema = new Schema(
 );
 
 userSchema.virtual('friendCount').get(function() {return this.friends.length});
+
 const User = model('user', userSchema);
 
 module.exports = User;
