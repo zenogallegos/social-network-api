@@ -11,17 +11,18 @@ const reactionSchema = new Schema(
       required: true,
       maxlength: 280,
     },
-    userName: {
+    username: {
       type: String,
       required: true,
     },
     createdAt: {
       type: Date,
       default: Date.now,
-    }
+    },
   },
   {
     toJSON: {
+      virtuals: true,
       getters: true,
     },
     id: false,
